@@ -1,0 +1,49 @@
+{
+  "format_version": 1,
+  "imports": [
+    {
+      "target_table": "MASTERDATA_PRODUCT",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "MasterData.Product.csv",
+        "has_header": true,
+        "type_config": {
+          "delimiter": ","
+        }
+      },
+      "import_settings": {
+        "import_columns": [
+          "PRODUCTID",
+          "CATEGORY",
+          "PRICE",
+          "HISTORY_CREATEDAT",
+          "HISTORY_CHANGEDAT",
+          "SUPPLIER_PARTNERID",
+          "TAXTARIFFCODE",
+          "CURRENCY",
+          "TYPECODE",
+          "HISTORY_CREATEDBY_EMPLOYEEID",
+          "HISTORY_CHANGEDBY_EMPLOYEEID",
+          "NAMEID",
+          "DESCID"
+        ],
+        "include_filter": []
+      },
+      "column_mappings": {
+        "PRODUCTID": "PRODUCTID",
+        "CATEGORY": "CATEGORY",
+        "PRICE": "PRICE",
+        "HISTORY_CREATEDAT": "HISTORY.CREATEDAT",
+        "HISTORY_CHANGEDAT": "HISTORY.CHANGEDAT",
+        "SUPPLIER_PARTNERID": "SUPPLIER.PARTNERID",
+        "TAXTARIFFCODE": "TAXTARIFFCODE",
+        "CURRENCY": "CURRENCY",
+        "TYPECODE": "TYPECODE",
+        "HISTORY_CREATEDBY_EMPLOYEEID": "HISTORY.CREATEDBY.EMPLOYEEID",
+        "HISTORY_CHANGEDBY_EMPLOYEEID": "HISTORY.CHANGEDBY.EMPLOYEEID",
+        "NAMEID": "NAMEID",
+        "DESCID": "DESCID"
+      }
+    }
+  ]
+}

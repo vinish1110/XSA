@@ -1,0 +1,49 @@
+{
+  "format_version": 1,
+  "imports": [
+    {
+      "target_table": "TRANSACTION_SALESORDERITEMS",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "Transaction.SalesOrderItems.csv",
+        "has_header": true,
+        "type_config": {
+          "delimiter": ","
+        }
+      },
+      "import_settings": {
+        "import_columns": [
+          "HEADER_SALESORDERID",
+          "SALESORDERITEM",
+          "PRODUCT_PRODUCTID",
+          "NOTEID",
+          "CURRENCY",
+          "GROSSAMOUNT",
+          "NETAMOUNT",
+          "TAXAMOUNT",
+          "ITEMATPSTATUS",
+          "OPITEMPOS",
+          "QUANTITY",
+          "QUANTITYUNIT",
+          "DELIVERYDATE"
+        ],
+        "include_filter": []
+      },
+      "column_mappings": {
+        "HEADER_SALESORDERID": "HEADER.SALESORDERID",
+        "SALESORDERITEM": "SALESORDERITEM",
+        "PRODUCT_PRODUCTID": "PRODUCT.PRODUCTID",
+        "NOTEID": "NOTEID",
+        "CURRENCY": "CURRENCY",
+        "GROSSAMOUNT": "GROSSAMOUNT",
+        "NETAMOUNT": "NETAMOUNT",
+        "TAXAMOUNT": "TAXAMOUNT",
+        "ITEMATPSTATUS": "ITEMATPSTATUS",
+        "OPITEMPOS": "OPITEMPOS",
+        "QUANTITY": "QUANTITY",
+        "QUANTITYUNIT": "QUANTITYUNIT",
+        "DELIVERYDATE": "DELIVERYDATE"
+      }
+    }
+  ]
+}

@@ -1,0 +1,1415 @@
+{
+  "definitions": {
+    "MasterData": {
+      "kind": "context"
+    },
+    "MasterData.BusinessKey": {
+      "kind": "type",
+      "type": "cds.String",
+      "length": 10
+    },
+    "MasterData.SDate": {
+      "kind": "type",
+      "type": "cds.DateTime"
+    },
+    "MasterData.CurrencyT": {
+      "kind": "type",
+      "type": "cds.String",
+      "length": 5
+    },
+    "MasterData.AmountT": {
+      "kind": "type",
+      "type": "cds.Decimal",
+      "precision": 15,
+      "scale": 2
+    },
+    "MasterData.QuantityT": {
+      "kind": "type",
+      "type": "cds.Decimal",
+      "precision": 13,
+      "scale": 3
+    },
+    "MasterData.UnitT": {
+      "kind": "type",
+      "type": "cds.String",
+      "length": 3
+    },
+    "MasterData.StatusT": {
+      "kind": "type",
+      "type": "cds.String",
+      "length": 1
+    },
+    "MasterData.Employee": {
+      "kind": "entity",
+      "elements": {
+        "EMPLOYEEID": {
+          "key": true,
+          "type": "cds.Integer",
+          "notNull": true
+        },
+        "NAME": {
+          "type": "MasterData.Name"
+        },
+        "SEX": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "LANGUAGE": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "PHONENUMBER": {
+          "type": "cds.String",
+          "length": 30
+        },
+        "EMAILADDRESS": {
+          "type": "cds.String",
+          "length": 255
+        },
+        "LOGINNAME": {
+          "type": "cds.String",
+          "length": 12
+        },
+        "CURRENCY": {
+          "type": "cds.String",
+          "length": 5
+        },
+        "SALARYAMOUNT": {
+          "type": "cds.Decimal",
+          "precision": 15,
+          "scale": 2
+        },
+        "ACCOUNTNUMBER": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "ADDRESSES": {
+          "type": "cds.Association",
+          "cardinality": {
+            "src": 1,
+            "min": 0,
+            "max": 1
+          },
+          "target": "MasterData.Address",
+          "keys": [
+            {
+              "ref": [
+                "ADDRESSID"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "MasterData.dummy": {
+      "kind": "entity",
+      "elements": {
+        "dummy": {
+          "type": "cds.String",
+          "length": 1
+        }
+      }
+    },
+    "MasterData.Name": {
+      "kind": "type",
+      "elements": {
+        "FIRST": {
+          "type": "cds.String",
+          "length": 40
+        },
+        "MIDDLE": {
+          "type": "cds.String",
+          "length": 40
+        },
+        "LAST": {
+          "type": "cds.String",
+          "length": 40
+        },
+        "INITIALS": {
+          "type": "cds.String",
+          "length": 10
+        }
+      }
+    },
+    "MasterData.HistoryT": {
+      "kind": "type",
+      "elements": {
+        "CREATEDBY": {
+          "type": "cds.Association",
+          "cardinality": {
+            "src": 1,
+            "min": 0,
+            "max": 1
+          },
+          "target": "MasterData.Employee",
+          "keys": [
+            {
+              "ref": [
+                "EMPLOYEEID"
+              ]
+            }
+          ]
+        },
+        "CREATEDAT": {
+          "type": "cds.Date"
+        },
+        "CHANGEDBY": {
+          "type": "cds.Association",
+          "cardinality": {
+            "src": 1,
+            "min": 0,
+            "max": 1
+          },
+          "target": "MasterData.Employee",
+          "keys": [
+            {
+              "ref": [
+                "EMPLOYEEID"
+              ]
+            }
+          ]
+        },
+        "CHANGEDAT": {
+          "type": "cds.Date"
+        }
+      }
+    },
+    "MasterData.Address": {
+      "kind": "entity",
+      "elements": {
+        "ADDRESSID": {
+          "key": true,
+          "type": "cds.Integer",
+          "notNull": true
+        },
+        "CITY": {
+          "type": "cds.String",
+          "length": 40
+        },
+        "POSTALCODE": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "STREET": {
+          "type": "cds.String",
+          "length": 60
+        },
+        "BUILDING": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "COUNTRY": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "REGION": {
+          "type": "cds.String",
+          "length": 4
+        },
+        "ADDRESSTYPE": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "LATITUDE": {
+          "type": "cds.Double"
+        },
+        "LONGITUDE": {
+          "type": "cds.Double"
+        },
+        "POINT": {
+          "type": "cds.hana.ST_POINT"
+        }
+      }
+    },
+    "MasterData.Product": {
+      "kind": "entity",
+      "elements": {
+        "PRODUCTID": {
+          "key": true,
+          "type": "cds.String",
+          "length": 10,
+          "notNull": true
+        },
+        "TYPECODE": {
+          "type": "cds.String",
+          "length": 4
+        },
+        "CATEGORY": {
+          "type": "cds.String",
+          "length": 40
+        },
+        "HISTORY": {
+          "type": "MasterData.HistoryT",
+          "elements": {
+            "CREATEDBY": {
+              "type": "cds.Association",
+              "cardinality": {
+                "src": 1,
+                "min": 0,
+                "max": 1
+              },
+              "target": "MasterData.Employee",
+              "keys": [
+                {
+                  "ref": [
+                    "EMPLOYEEID"
+                  ]
+                }
+              ]
+            },
+            "CREATEDAT": {
+              "type": "cds.Date"
+            },
+            "CHANGEDBY": {
+              "type": "cds.Association",
+              "cardinality": {
+                "src": 1,
+                "min": 0,
+                "max": 1
+              },
+              "target": "MasterData.Employee",
+              "keys": [
+                {
+                  "ref": [
+                    "EMPLOYEEID"
+                  ]
+                }
+              ]
+            },
+            "CHANGEDAT": {
+              "type": "cds.Date"
+            }
+          }
+        },
+        "TAXTARIFFCODE": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "CURRENCY": {
+          "type": "cds.String",
+          "length": 4
+        },
+        "PRICE": {
+          "type": "cds.Decimal",
+          "precision": 15,
+          "scale": 2
+        },
+        "NAMEID": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "DESCID": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "SUPPLIER": {
+          "type": "cds.Association",
+          "cardinality": {
+            "src": 1,
+            "min": 0,
+            "max": 1
+          },
+          "target": "MasterData.Partner",
+          "keys": [
+            {
+              "ref": [
+                "PARTNERID"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "MasterData.Partner": {
+      "kind": "entity",
+      "elements": {
+        "PARTNERID": {
+          "type": "cds.Integer"
+        },
+        "PARTNERROLE": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "EMAILADDRESS": {
+          "type": "cds.String",
+          "length": 255
+        },
+        "PHONENUMBER": {
+          "type": "cds.String",
+          "length": 30
+        },
+        "FAXNUMBER": {
+          "type": "cds.String",
+          "length": 30
+        },
+        "WEBADDRESS": {
+          "type": "cds.String",
+          "length": 1024
+        },
+        "COMPANYNAME": {
+          "type": "cds.String",
+          "length": 80
+        },
+        "HISTORY": {
+          "type": "MasterData.HistoryT",
+          "elements": {
+            "CREATEDBY": {
+              "type": "cds.Association",
+              "cardinality": {
+                "src": 1,
+                "min": 0,
+                "max": 1
+              },
+              "target": "MasterData.Employee",
+              "keys": [
+                {
+                  "ref": [
+                    "EMPLOYEEID"
+                  ]
+                }
+              ]
+            },
+            "CREATEDAT": {
+              "type": "cds.Date"
+            },
+            "CHANGEDBY": {
+              "type": "cds.Association",
+              "cardinality": {
+                "src": 1,
+                "min": 0,
+                "max": 1
+              },
+              "target": "MasterData.Employee",
+              "keys": [
+                {
+                  "ref": [
+                    "EMPLOYEEID"
+                  ]
+                }
+              ]
+            },
+            "CHANGEDAT": {
+              "type": "cds.Date"
+            }
+          }
+        },
+        "CURRENCY": {
+          "type": "cds.String",
+          "length": 5
+        },
+        "ADDRESSES": {
+          "type": "cds.Association",
+          "cardinality": {
+            "src": 1,
+            "min": 0,
+            "max": 1
+          },
+          "target": "MasterData.Address",
+          "keys": [
+            {
+              "ref": [
+                "ADDRESSID"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "MasterData.Texts": {
+      "kind": "entity",
+      "elements": {
+        "TEXTID": {
+          "key": true,
+          "type": "cds.String",
+          "length": 10,
+          "notNull": true
+        },
+        "LANGUAGE": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "ISOLANGUAGE": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "TEXT": {
+          "type": "cds.String",
+          "length": 1024
+        }
+      }
+    },
+    "Transaction": {
+      "kind": "context"
+    },
+    "Transaction.PurchaseOrder": {
+      "kind": "entity",
+      "elements": {
+        "PURCHASEORDERID": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "HISTORY": {
+          "type": "MasterData.HistoryT",
+          "elements": {
+            "CREATEDBY": {
+              "type": "cds.Association",
+              "cardinality": {
+                "src": 1,
+                "min": 0,
+                "max": 1
+              },
+              "target": "MasterData.Employee",
+              "keys": [
+                {
+                  "ref": [
+                    "EMPLOYEEID"
+                  ]
+                }
+              ]
+            },
+            "CREATEDAT": {
+              "type": "cds.Date"
+            },
+            "CHANGEDBY": {
+              "type": "cds.Association",
+              "cardinality": {
+                "src": 1,
+                "min": 0,
+                "max": 1
+              },
+              "target": "MasterData.Employee",
+              "keys": [
+                {
+                  "ref": [
+                    "EMPLOYEEID"
+                  ]
+                }
+              ]
+            },
+            "CHANGEDAT": {
+              "type": "cds.Date"
+            }
+          }
+        },
+        "NOTEID": {
+          "type": "MasterData.BusinessKey",
+          "length": 10,
+          "notNull": false
+        },
+        "PARTNER": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": 1
+          },
+          "target": "MasterData.Partner",
+          "keys": [
+            {
+              "ref": [
+                "PARTNERID"
+              ]
+            }
+          ]
+        },
+        "CURRENCY": {
+          "type": "MasterData.CurrencyT",
+          "length": 5
+        },
+        "GROSSAMOUNT": {
+          "type": "MasterData.AmountT",
+          "precision": 15,
+          "scale": 2
+        },
+        "NETAMOUNT": {
+          "type": "MasterData.AmountT",
+          "precision": 15,
+          "scale": 2
+        },
+        "TAXAMOUNT": {
+          "type": "MasterData.AmountT",
+          "precision": 15,
+          "scale": 2
+        },
+        "LIFECYCLESTATUS": {
+          "type": "MasterData.StatusT",
+          "length": 1
+        },
+        "APPROVALSTATUS": {
+          "type": "MasterData.StatusT",
+          "length": 1
+        },
+        "CONFIRMSTATUS": {
+          "type": "MasterData.StatusT",
+          "length": 1
+        },
+        "ORDERINGSTATUS": {
+          "type": "MasterData.StatusT",
+          "length": 1
+        },
+        "INVOICINGSTATUS": {
+          "type": "MasterData.StatusT",
+          "length": 1
+        }
+      }
+    },
+    "Transaction.PurchaseOrderItems": {
+      "kind": "entity",
+      "elements": {
+        "HEADER": {
+          "key": true,
+          "type": "cds.Association",
+          "cardinality": {
+            "min": 1,
+            "max": 1
+          },
+          "target": "Transaction.PurchaseOrder",
+          "keys": [
+            {
+              "ref": [
+                "PURCHASEORDERID"
+              ]
+            }
+          ]
+        },
+        "PURCHASEORDERITEM": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "PRODUCT": {
+          "type": "cds.Association",
+          "cardinality": {
+            "min": 1,
+            "max": 1
+          },
+          "target": "MasterData.Product",
+          "keys": [
+            {
+              "ref": [
+                "PRODUCTID"
+              ]
+            }
+          ]
+        },
+        "NOTEID": {
+          "type": "MasterData.BusinessKey",
+          "length": 10,
+          "notNull": false
+        },
+        "CURRENCY": {
+          "type": "MasterData.CurrencyT",
+          "length": 5
+        },
+        "GROSSAMOUNT": {
+          "type": "MasterData.AmountT",
+          "precision": 15,
+          "scale": 2
+        },
+        "NETAMOUNT": {
+          "type": "MasterData.AmountT",
+          "precision": 15,
+          "scale": 2
+        },
+        "TAXAMOUNT": {
+          "type": "MasterData.AmountT",
+          "precision": 15,
+          "scale": 2
+        },
+        "QUANTITY": {
+          "type": "MasterData.QuantityT",
+          "precision": 13,
+          "scale": 3
+        },
+        "QUANTITYUNIT": {
+          "type": "MasterData.UnitT",
+          "length": 3
+        },
+        "DELIVERYDATE": {
+          "type": "cds.DateTime"
+        }
+      }
+    },
+    "Transaction.SalesOrder": {
+      "kind": "entity",
+      "elements": {
+        "SALESORDERID": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "HISTORY": {
+          "type": "MasterData.HistoryT",
+          "elements": {
+            "CREATEDBY": {
+              "type": "cds.Association",
+              "cardinality": {
+                "src": 1,
+                "min": 0,
+                "max": 1
+              },
+              "target": "MasterData.Employee",
+              "keys": [
+                {
+                  "ref": [
+                    "EMPLOYEEID"
+                  ]
+                }
+              ]
+            },
+            "CREATEDAT": {
+              "type": "cds.Date"
+            },
+            "CHANGEDBY": {
+              "type": "cds.Association",
+              "cardinality": {
+                "src": 1,
+                "min": 0,
+                "max": 1
+              },
+              "target": "MasterData.Employee",
+              "keys": [
+                {
+                  "ref": [
+                    "EMPLOYEEID"
+                  ]
+                }
+              ]
+            },
+            "CHANGEDAT": {
+              "type": "cds.Date"
+            }
+          }
+        },
+        "NOTEID": {
+          "type": "MasterData.BusinessKey",
+          "length": 10,
+          "notNull": false
+        },
+        "PARTNER": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": 1
+          },
+          "target": "MasterData.Partner",
+          "keys": [
+            {
+              "ref": [
+                "PARTNERID"
+              ]
+            }
+          ]
+        },
+        "CURRENCY": {
+          "type": "MasterData.CurrencyT",
+          "length": 5
+        },
+        "GROSSAMOUNT": {
+          "type": "MasterData.AmountT",
+          "precision": 15,
+          "scale": 2
+        },
+        "NETAMOUNT": {
+          "type": "MasterData.AmountT",
+          "precision": 15,
+          "scale": 2
+        },
+        "TAXAMOUNT": {
+          "type": "MasterData.AmountT",
+          "precision": 15,
+          "scale": 2
+        },
+        "LIFECYCLESTATUS": {
+          "type": "MasterData.StatusT",
+          "length": 1
+        },
+        "BILLINGSTATUS": {
+          "type": "MasterData.StatusT",
+          "length": 1
+        },
+        "DELIVERYSTATUS": {
+          "type": "MasterData.StatusT",
+          "length": 1
+        }
+      }
+    },
+    "Transaction.SalesOrderItems": {
+      "kind": "entity",
+      "elements": {
+        "HEADER": {
+          "key": true,
+          "type": "cds.Association",
+          "cardinality": {
+            "min": 1,
+            "max": 1
+          },
+          "target": "Transaction.SalesOrder",
+          "keys": [
+            {
+              "ref": [
+                "SALESORDERID"
+              ]
+            }
+          ]
+        },
+        "SALESORDERITEM": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "PRODUCT": {
+          "type": "cds.Association",
+          "cardinality": {
+            "min": 1,
+            "max": 1
+          },
+          "target": "MasterData.Product",
+          "keys": [
+            {
+              "ref": [
+                "PRODUCTID"
+              ]
+            }
+          ]
+        },
+        "NOTEID": {
+          "type": "MasterData.BusinessKey",
+          "length": 10,
+          "notNull": false
+        },
+        "CURRENCY": {
+          "type": "MasterData.CurrencyT",
+          "length": 5
+        },
+        "GROSSAMOUNT": {
+          "type": "MasterData.AmountT",
+          "precision": 15,
+          "scale": 2
+        },
+        "NETAMOUNT": {
+          "type": "MasterData.AmountT",
+          "precision": 15,
+          "scale": 2
+        },
+        "TAXAMOUNT": {
+          "type": "MasterData.AmountT",
+          "precision": 15,
+          "scale": 2
+        },
+        "QUANTITY": {
+          "type": "MasterData.QuantityT",
+          "precision": 13,
+          "scale": 3
+        },
+        "QUANTITYUNIT": {
+          "type": "MasterData.UnitT",
+          "length": 3
+        },
+        "DELIVERYDATE": {
+          "type": "cds.DateTime"
+        },
+        "ITEMATPSTATUS": {
+          "type": "MasterData.StatusT",
+          "length": 1
+        },
+        "OPITEMPOS": {
+          "type": "cds.Integer"
+        }
+      }
+    },
+    "Base": {
+      "kind": "entity",
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.Integer"
+        }
+      }
+    },
+    "opensap.common": {
+      "kind": "context"
+    },
+    "opensap.common.Amount": {
+      "kind": "aspect",
+      "elements": {
+        "currency": {
+          "@title": "{i18n>Currency}",
+          "@description": "{i18n>CurrencyCode.Description}",
+          "type": "Currency",
+          "target": "sap.common.Currencies",
+          "keys": [
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "Language": {
+      "kind": "type",
+      "@title": "{i18n>Language}",
+      "@description": "{i18n>LanguageCode.Description}",
+      "type": "cds.Association",
+      "target": "sap.common.Languages",
+      "keys": [
+        {
+          "ref": [
+            "code"
+          ]
+        }
+      ]
+    },
+    "Currency": {
+      "kind": "type",
+      "@title": "{i18n>Currency}",
+      "@description": "{i18n>CurrencyCode.Description}",
+      "type": "cds.Association",
+      "target": "sap.common.Currencies",
+      "keys": [
+        {
+          "ref": [
+            "code"
+          ]
+        }
+      ]
+    },
+    "Country": {
+      "kind": "type",
+      "@title": "{i18n>Country}",
+      "@description": "{i18n>CountryCode.Description}",
+      "type": "cds.Association",
+      "target": "sap.common.Countries",
+      "keys": [
+        {
+          "ref": [
+            "code"
+          ]
+        }
+      ]
+    },
+    "sap.common": {
+      "kind": "context"
+    },
+    "sap.common.Languages": {
+      "kind": "entity",
+      "@cds.autoexpose": true,
+      "@cds.persistence.skip": "if-unused",
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        }
+      ],
+      "@cds.odata.valuelist": true,
+      "includes": [
+        "sap.common.CodeList"
+      ],
+      "elements": {
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@title": "{i18n>LanguageCode}",
+          "@Common.Text": {
+            "=": "name"
+          },
+          "key": true,
+          "type": "cds.String",
+          "length": 14
+        },
+        "texts": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "sap.common.Languages.texts",
+          "on": [
+            {
+              "ref": [
+                "texts",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "localized": {
+          "type": "cds.Association",
+          "target": "sap.common.Languages.texts",
+          "on": [
+            {
+              "ref": [
+                "localized",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            },
+            "and",
+            {
+              "ref": [
+                "localized",
+                "locale"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$user",
+                "locale"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "sap.common.Countries": {
+      "kind": "entity",
+      "@cds.autoexpose": true,
+      "@cds.persistence.skip": "if-unused",
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        }
+      ],
+      "@cds.odata.valuelist": true,
+      "includes": [
+        "sap.common.CodeList"
+      ],
+      "elements": {
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@title": "{i18n>CountryCode}",
+          "@Common.Text": {
+            "=": "name"
+          },
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        },
+        "texts": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "sap.common.Countries.texts",
+          "on": [
+            {
+              "ref": [
+                "texts",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "localized": {
+          "type": "cds.Association",
+          "target": "sap.common.Countries.texts",
+          "on": [
+            {
+              "ref": [
+                "localized",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            },
+            "and",
+            {
+              "ref": [
+                "localized",
+                "locale"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$user",
+                "locale"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "sap.common.Currencies": {
+      "kind": "entity",
+      "@cds.autoexpose": true,
+      "@cds.persistence.skip": "if-unused",
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        }
+      ],
+      "@cds.odata.valuelist": true,
+      "includes": [
+        "sap.common.CodeList"
+      ],
+      "elements": {
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@title": "{i18n>CurrencyCode}",
+          "@Common.Text": {
+            "=": "name"
+          },
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        },
+        "symbol": {
+          "@title": "{i18n>CurrencySymbol}",
+          "type": "cds.String",
+          "length": 5
+        },
+        "numcode": {
+          "type": "cds.Integer"
+        },
+        "exponent": {
+          "type": "cds.Integer"
+        },
+        "minor": {
+          "type": "cds.String"
+        },
+        "texts": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "sap.common.Currencies.texts",
+          "on": [
+            {
+              "ref": [
+                "texts",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "localized": {
+          "type": "cds.Association",
+          "target": "sap.common.Currencies.texts",
+          "on": [
+            {
+              "ref": [
+                "localized",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            },
+            "and",
+            {
+              "ref": [
+                "localized",
+                "locale"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$user",
+                "locale"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "sap.common.CodeList": {
+      "kind": "aspect",
+      "@cds.autoexpose": true,
+      "@cds.persistence.skip": "if-unused",
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        }
+      ],
+      "@cds.odata.valuelist": true,
+      "elements": {
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 1000
+        }
+      }
+    },
+    "cuid": {
+      "kind": "aspect",
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        }
+      }
+    },
+    "managed": {
+      "kind": "aspect",
+      "elements": {
+        "createdAt": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@title": "{i18n>CreatedAt}",
+          "@readonly": true,
+          "@odata.on.insert": {
+            "#": "now"
+          },
+          "type": "cds.Timestamp"
+        },
+        "createdBy": {
+          "@cds.on.insert": {
+            "=": "$user"
+          },
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@title": "{i18n>CreatedBy}",
+          "@readonly": true,
+          "@odata.on.insert": {
+            "#": "user"
+          },
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        },
+        "modifiedAt": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@cds.on.update": {
+            "=": "$now"
+          },
+          "@UI.HiddenFilter": true,
+          "@title": "{i18n>ChangedAt}",
+          "@readonly": true,
+          "@odata.on.update": {
+            "#": "now"
+          },
+          "type": "cds.Timestamp"
+        },
+        "modifiedBy": {
+          "@cds.on.insert": {
+            "=": "$user"
+          },
+          "@cds.on.update": {
+            "=": "$user"
+          },
+          "@UI.HiddenFilter": true,
+          "@title": "{i18n>ChangedBy}",
+          "@readonly": true,
+          "@odata.on.update": {
+            "#": "user"
+          },
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        }
+      }
+    },
+    "temporal": {
+      "kind": "aspect",
+      "elements": {
+        "validFrom": {
+          "@cds.valid.from": true,
+          "type": "cds.Timestamp"
+        },
+        "validTo": {
+          "@cds.valid.to": true,
+          "type": "cds.Timestamp"
+        }
+      }
+    },
+    "User": {
+      "kind": "type",
+      "@title": "{i18n>UserID}",
+      "@description": "{i18n>UserID.Description}",
+      "type": "cds.String",
+      "length": 255
+    },
+    "extensible": {
+      "kind": "aspect",
+      "elements": {
+        "extensions__": {
+          "@cds.api.ignore": true,
+          "type": "cds.String"
+        }
+      }
+    },
+    "sap.common.Languages.texts": {
+      "kind": "entity",
+      "@odata.draft.enabled": false,
+      "elements": {
+        "locale": {
+          "key": true,
+          "type": "cds.String",
+          "length": 14
+        },
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@odata.containment.ignore": true,
+          "@title": "{i18n>LanguageCode}",
+          "@Common.Text": {
+            "=": "name"
+          },
+          "key": true,
+          "type": "cds.String",
+          "length": 14
+        }
+      }
+    },
+    "sap.common.Countries.texts": {
+      "kind": "entity",
+      "@odata.draft.enabled": false,
+      "elements": {
+        "locale": {
+          "key": true,
+          "type": "cds.String",
+          "length": 14
+        },
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@odata.containment.ignore": true,
+          "@title": "{i18n>CountryCode}",
+          "@Common.Text": {
+            "=": "name"
+          },
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        }
+      }
+    },
+    "sap.common.Currencies.texts": {
+      "kind": "entity",
+      "@odata.draft.enabled": false,
+      "elements": {
+        "locale": {
+          "key": true,
+          "type": "cds.String",
+          "length": 14
+        },
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@odata.containment.ignore": true,
+          "@title": "{i18n>CurrencyCode}",
+          "@Common.Text": {
+            "=": "name"
+          },
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        }
+      }
+    }
+  },
+  "meta": {
+    "creator": "CDS Compiler v2.11.2",
+    "flavor": "inferred"
+  },
+  "$version": "2.0"
+}

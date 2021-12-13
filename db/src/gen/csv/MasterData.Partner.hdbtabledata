@@ -1,0 +1,49 @@
+{
+  "format_version": 1,
+  "imports": [
+    {
+      "target_table": "MASTERDATA_PARTNER",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "MasterData.Partner.csv",
+        "has_header": true,
+        "type_config": {
+          "delimiter": ","
+        }
+      },
+      "import_settings": {
+        "import_columns": [
+          "PARTNERID",
+          "PARTNERROLE",
+          "EMAILADDRESS",
+          "PHONENUMBER",
+          "FAXNUMBER",
+          "WEBADDRESS",
+          "COMPANYNAME",
+          "HISTORY_CREATEDBY_EMPLOYEEID",
+          "HISTORY_CREATEDAT",
+          "HISTORY_CHANGEDBY_EMPLOYEEID",
+          "HISTORY_CHANGEDAT",
+          "CURRENCY",
+          "ADDRESSES_ADDRESSID"
+        ],
+        "include_filter": []
+      },
+      "column_mappings": {
+        "PARTNERID": "PARTNERID",
+        "PARTNERROLE": "PARTNERROLE",
+        "EMAILADDRESS": "EMAILADDRESS",
+        "PHONENUMBER": "PHONENUMBER",
+        "FAXNUMBER": "FAXNUMBER",
+        "WEBADDRESS": "WEBADDRESS",
+        "COMPANYNAME": "COMPANYNAME",
+        "HISTORY_CREATEDBY_EMPLOYEEID": "HISTORY.CREATEDBY.EMPLOYEEID",
+        "HISTORY_CREATEDAT": "HISTORY.CREATEDAT",
+        "HISTORY_CHANGEDBY_EMPLOYEEID": "HISTORY.CHANGEDBY.EMPLOYEEID",
+        "HISTORY_CHANGEDAT": "HISTORY.CHANGEDAT",
+        "CURRENCY": "CURRENCY",
+        "ADDRESSES_ADDRESSID": "ADDRESSES.ADDRESSID"
+      }
+    }
+  ]
+}

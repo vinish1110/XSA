@@ -1,0 +1,51 @@
+{
+  "format_version": 1,
+  "imports": [
+    {
+      "target_table": "TRANSACTION_SALESORDER",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "Transaction.SalesOrder.csv",
+        "has_header": true,
+        "type_config": {
+          "delimiter": ","
+        }
+      },
+      "import_settings": {
+        "import_columns": [
+          "SALESORDERID",
+          "HISTORY_CREATEDBY_EMPLOYEEID",
+          "HISTORY_CREATEDAT",
+          "HISTORY_CHANGEDBY_EMPLOYEEID",
+          "HISTORY_CHANGEDAT",
+          "NOTEID",
+          "PARTNER_PARTNERID",
+          "CURRENCY",
+          "GROSSAMOUNT",
+          "NETAMOUNT",
+          "TAXAMOUNT",
+          "LIFECYCLESTATUS",
+          "BILLINGSTATUS",
+          "DELIVERYSTATUS"
+        ],
+        "include_filter": []
+      },
+      "column_mappings": {
+        "SALESORDERID": "SALESORDERID",
+        "HISTORY_CREATEDBY_EMPLOYEEID": "HISTORY.CREATEDBY.EMPLOYEEID",
+        "HISTORY_CREATEDAT": "HISTORY.CREATEDAT",
+        "HISTORY_CHANGEDBY_EMPLOYEEID": "HISTORY.CHANGEDBY.EMPLOYEEID",
+        "HISTORY_CHANGEDAT": "HISTORY.CHANGEDAT",
+        "NOTEID": "NOTEID",
+        "PARTNER_PARTNERID": "PARTNER.PARTNERID",
+        "CURRENCY": "CURRENCY",
+        "GROSSAMOUNT": "GROSSAMOUNT",
+        "NETAMOUNT": "NETAMOUNT",
+        "TAXAMOUNT": "TAXAMOUNT",
+        "LIFECYCLESTATUS": "LIFECYCLESTATUS",
+        "BILLINGSTATUS": "BILLINGSTATUS",
+        "DELIVERYSTATUS": "DELIVERYSTATUS"
+      }
+    }
+  ]
+}

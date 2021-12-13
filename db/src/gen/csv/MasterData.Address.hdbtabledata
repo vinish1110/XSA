@@ -1,0 +1,45 @@
+{
+  "format_version": 1,
+  "imports": [
+    {
+      "target_table": "MASTERDATA_ADDRESS",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "MasterData.Address.csv",
+        "has_header": true,
+        "type_config": {
+          "delimiter": ","
+        }
+      },
+      "import_settings": {
+        "import_columns": [
+          "ADDRESSID",
+          "CITY",
+          "POSTALCODE",
+          "STREET",
+          "BUILDING",
+          "COUNTRY",
+          "REGION",
+          "ADDRESSTYPE",
+          "LATITUDE",
+          "LONGITUDE",
+          "POINT"
+        ],
+        "include_filter": []
+      },
+      "column_mappings": {
+        "ADDRESSID": "ADDRESSID",
+        "CITY": "CITY",
+        "POSTALCODE": "POSTALCODE",
+        "STREET": "STREET",
+        "BUILDING": "BUILDING",
+        "COUNTRY": "COUNTRY",
+        "REGION": "REGION",
+        "ADDRESSTYPE": "ADDRESSTYPE",
+        "LATITUDE": "LATITUDE",
+        "LONGITUDE": "LONGITUDE",
+        "POINT": "POINT"
+      }
+    }
+  ]
+}

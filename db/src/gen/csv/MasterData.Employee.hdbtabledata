@@ -1,0 +1,51 @@
+{
+  "format_version": 1,
+  "imports": [
+    {
+      "target_table": "MASTERDATA_EMPLOYEE",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "MasterData.Employee.csv",
+        "has_header": true,
+        "type_config": {
+          "delimiter": ","
+        }
+      },
+      "import_settings": {
+        "import_columns": [
+          "EMPLOYEEID",
+          "NAME_FIRST",
+          "NAME_MIDDLE",
+          "NAME_LAST",
+          "NAME_INITIALS",
+          "SEX",
+          "LANGUAGE",
+          "PHONENUMBER",
+          "EMAILADDRESS",
+          "LOGINNAME",
+          "ADDRESSES_ADDRESSID",
+          "CURRENCY",
+          "SALARYAMOUNT",
+          "ACCOUNTNUMBER"
+        ],
+        "include_filter": []
+      },
+      "column_mappings": {
+        "EMPLOYEEID": "EMPLOYEEID",
+        "NAME_FIRST": "NAME.FIRST",
+        "NAME_MIDDLE": "NAME.MIDDLE",
+        "NAME_LAST": "NAME.LAST",
+        "NAME_INITIALS": "NAME.INITIALS",
+        "SEX": "SEX",
+        "LANGUAGE": "LANGUAGE",
+        "PHONENUMBER": "PHONENUMBER",
+        "EMAILADDRESS": "EMAILADDRESS",
+        "LOGINNAME": "LOGINNAME",
+        "ADDRESSES_ADDRESSID": "ADDRESSES.ADDRESSID",
+        "CURRENCY": "CURRENCY",
+        "SALARYAMOUNT": "SALARYAMOUNT",
+        "ACCOUNTNUMBER": "ACCOUNTNUMBER"
+      }
+    }
+  ]
+}
