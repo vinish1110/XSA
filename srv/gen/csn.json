@@ -1,5 +1,690 @@
 {
   "definitions": {
+    "CDSViews": {
+      "kind": "context"
+    },
+    "CDSViews.BusinessPartner": {
+      "kind": "entity",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "MasterData.Partner"
+            ]
+          },
+          "columns": [
+            {
+              "ref": [
+                "PARTNERID"
+              ],
+              "as": "BPid"
+            },
+            {
+              "ref": [
+                "PARTNERROLE"
+              ],
+              "as": "BPRole"
+            },
+            {
+              "ref": [
+                "COMPANYNAME"
+              ],
+              "as": "Company"
+            }
+          ],
+          "where": [
+            {
+              "ref": [
+                "CURRENCY"
+              ]
+            },
+            "=",
+            {
+              "val": "USD"
+            }
+          ]
+        }
+      },
+      "elements": {
+        "BPid": {
+          "type": "cds.Integer"
+        },
+        "BPRole": {
+          "type": "cds.String",
+          "length": 3
+        },
+        "Company": {
+          "type": "cds.String",
+          "length": 80
+        }
+      }
+    },
+    "CDSViews.POrders": {
+      "kind": "entity",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "Transaction.PurchaseOrder"
+            ]
+          },
+          "columns": [
+            {
+              "ref": [
+                "PURCHASEORDERID"
+              ],
+              "as": "OrderId"
+            },
+            {
+              "ref": [
+                "PARTNER",
+                "PARTNERID"
+              ],
+              "as": "SupplierId"
+            },
+            {
+              "ref": [
+                "CURRENCY"
+              ],
+              "as": "CurrencyCode"
+            },
+            {
+              "ref": [
+                "GROSSAMOUNT"
+              ],
+              "as": "GrossAmount"
+            },
+            {
+              "ref": [
+                "NETAMOUNT"
+              ],
+              "as": "NetAmount"
+            },
+            {
+              "ref": [
+                "TAXAMOUNT"
+              ],
+              "as": "TaxAmount"
+            },
+            {
+              "ref": [
+                "LIFECYCLESTATUS"
+              ],
+              "as": "Status"
+            }
+          ]
+        }
+      },
+      "elements": {
+        "OrderId": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "SupplierId": {
+          "type": "cds.Integer"
+        },
+        "CurrencyCode": {
+          "type": "MasterData.CurrencyT",
+          "length": 5
+        },
+        "GrossAmount": {
+          "type": "MasterData.AmountT",
+          "precision": 15,
+          "scale": 2
+        },
+        "NetAmount": {
+          "type": "MasterData.AmountT",
+          "precision": 15,
+          "scale": 2
+        },
+        "TaxAmount": {
+          "type": "MasterData.AmountT",
+          "precision": 15,
+          "scale": 2
+        },
+        "Status": {
+          "type": "MasterData.StatusT",
+          "length": 1
+        }
+      }
+    },
+    "CDSViews.OrderStatus": {
+      "kind": "entity",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "CDSViews.POrders"
+            ]
+          },
+          "columns": [
+            {
+              "xpr": [
+                "case",
+                {
+                  "ref": [
+                    "Status"
+                  ]
+                },
+                "when",
+                {
+                  "val": "P"
+                },
+                "then",
+                {
+                  "val": "Paid"
+                },
+                "when",
+                {
+                  "val": "R"
+                },
+                "then",
+                {
+                  "val": "Rejected"
+                },
+                "when",
+                {
+                  "val": "C"
+                },
+                "then",
+                {
+                  "val": "Confirmed"
+                },
+                "when",
+                {
+                  "val": "N"
+                },
+                "then",
+                {
+                  "val": "New"
+                },
+                "when",
+                {
+                  "val": "X"
+                },
+                "then",
+                {
+                  "val": "Cancelled"
+                },
+                "end"
+              ],
+              "as": "Status"
+            },
+            {
+              "func": "count",
+              "args": [
+                {
+                  "ref": [
+                    "OrderId"
+                  ]
+                }
+              ],
+              "as": "NoOfOrders"
+            },
+            {
+              "func": "sum",
+              "args": [
+                {
+                  "ref": [
+                    "GrossAmount"
+                  ]
+                }
+              ],
+              "as": "TotalAmount"
+            }
+          ],
+          "groupBy": [
+            {
+              "ref": [
+                "Status"
+              ]
+            }
+          ]
+        }
+      },
+      "elements": {
+        "Status": {
+          "@Core.Computed": true
+        },
+        "NoOfOrders": {
+          "@Core.Computed": true
+        },
+        "TotalAmount": {
+          "@Core.Computed": true
+        }
+      }
+    },
+    "CDSViews.SupplierOrderItems": {
+      "kind": "entity",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "Transaction.PurchaseOrderItems"
+            ]
+          },
+          "mixin": {
+            "product": {
+              "type": "cds.Association",
+              "cardinality": {
+                "max": 1
+              },
+              "target": "MasterData.Product",
+              "on": [
+                {
+                  "ref": [
+                    "product",
+                    "PRODUCTID"
+                  ]
+                },
+                "=",
+                {
+                  "ref": [
+                    "$projection",
+                    "ProductId"
+                  ]
+                }
+              ]
+            }
+          },
+          "columns": [
+            {
+              "key": true,
+              "ref": [
+                "HEADER",
+                "PURCHASEORDERID"
+              ],
+              "as": "OrderId"
+            },
+            {
+              "key": true,
+              "ref": [
+                "PURCHASEORDERITEM"
+              ],
+              "as": "ItemNo"
+            },
+            {
+              "ref": [
+                "PRODUCT",
+                "PRODUCTID"
+              ],
+              "as": "ProductId"
+            },
+            {
+              "ref": [
+                "GROSSAMOUNT"
+              ],
+              "as": "GrossAmount"
+            },
+            {
+              "ref": [
+                "CURRENCY"
+              ],
+              "as": "CurrencyCode"
+            },
+            {
+              "ref": [
+                "QUANTITY"
+              ],
+              "as": "Quantity"
+            },
+            {
+              "ref": [
+                "QUANTITYUNIT"
+              ],
+              "as": "QuantityUnit"
+            },
+            {
+              "ref": [
+                "product"
+              ]
+            }
+          ]
+        }
+      },
+      "elements": {
+        "OrderId": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "ItemNo": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "ProductId": {
+          "type": "cds.String",
+          "length": 10,
+          "notNull": true
+        },
+        "GrossAmount": {
+          "type": "MasterData.AmountT",
+          "precision": 15,
+          "scale": 2
+        },
+        "CurrencyCode": {
+          "type": "MasterData.CurrencyT",
+          "length": 5
+        },
+        "Quantity": {
+          "type": "MasterData.QuantityT",
+          "precision": 13,
+          "scale": 3
+        },
+        "QuantityUnit": {
+          "type": "MasterData.UnitT",
+          "length": 3
+        },
+        "product": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": 1
+          },
+          "target": "MasterData.Product",
+          "on": [
+            {
+              "ref": [
+                "product",
+                "PRODUCTID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self",
+                "ProductId"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "CDSViews.SupplierOrders": {
+      "kind": "entity",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "CDSViews.POrders"
+            ]
+          },
+          "mixin": {
+            "items": {
+              "type": "cds.Association",
+              "cardinality": {
+                "min": 1,
+                "max": "*"
+              },
+              "target": "CDSViews.SupplierOrderItems",
+              "on": [
+                {
+                  "ref": [
+                    "items",
+                    "OrderId"
+                  ]
+                },
+                "=",
+                {
+                  "ref": [
+                    "$projection",
+                    "OrderId"
+                  ]
+                }
+              ]
+            },
+            "supplier": {
+              "type": "cds.Association",
+              "cardinality": {
+                "max": 1
+              },
+              "target": "MasterData.Partner",
+              "on": [
+                {
+                  "ref": [
+                    "supplier",
+                    "PARTNERID"
+                  ]
+                },
+                "=",
+                {
+                  "ref": [
+                    "$projection",
+                    "SupplierId"
+                  ]
+                }
+              ]
+            }
+          },
+          "columns": [
+            {
+              "ref": [
+                "OrderId"
+              ]
+            },
+            {
+              "ref": [
+                "SupplierId"
+              ]
+            },
+            {
+              "ref": [
+                "GrossAmount"
+              ]
+            },
+            {
+              "ref": [
+                "Status"
+              ]
+            },
+            {
+              "ref": [
+                "items"
+              ]
+            },
+            {
+              "ref": [
+                "supplier"
+              ]
+            }
+          ]
+        }
+      },
+      "elements": {
+        "OrderId": {
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "SupplierId": {
+          "type": "cds.Integer"
+        },
+        "GrossAmount": {
+          "type": "MasterData.AmountT",
+          "precision": 15,
+          "scale": 2
+        },
+        "Status": {
+          "type": "MasterData.StatusT",
+          "length": 1
+        },
+        "items": {
+          "type": "cds.Association",
+          "cardinality": {
+            "min": 1,
+            "max": "*"
+          },
+          "target": "CDSViews.SupplierOrderItems",
+          "on": [
+            {
+              "ref": [
+                "items",
+                "OrderId"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self",
+                "OrderId"
+              ]
+            }
+          ]
+        },
+        "supplier": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": 1
+          },
+          "target": "MasterData.Partner",
+          "on": [
+            {
+              "ref": [
+                "supplier",
+                "PARTNERID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self",
+                "SupplierId"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "CDSViews.ConsumptionView": {
+      "kind": "entity",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "CDSViews.SupplierOrders"
+            ]
+          },
+          "columns": [
+            {
+              "ref": [
+                "supplier",
+                "COMPANYNAME"
+              ],
+              "as": "CompanyName"
+            },
+            {
+              "ref": [
+                "items",
+                "GrossAmount"
+              ]
+            },
+            {
+              "ref": [
+                "items",
+                "CurrencyCode"
+              ]
+            },
+            {
+              "ref": [
+                "items",
+                "Quantity"
+              ]
+            },
+            {
+              "ref": [
+                "items",
+                "QuantityUnit"
+              ]
+            },
+            {
+              "ref": [
+                "items",
+                {
+                  "id": "product",
+                  "where": [
+                    {
+                      "ref": [
+                        "CATEGORY"
+                      ]
+                    },
+                    "=",
+                    {
+                      "val": "Others"
+                    }
+                  ]
+                },
+                "PRODUCTID"
+              ]
+            },
+            {
+              "ref": [
+                "items",
+                "product",
+                "PRICE"
+              ],
+              "as": "Price"
+            },
+            {
+              "func": "ceil",
+              "args": [
+                {
+                  "xpr": [
+                    {
+                      "ref": [
+                        "items",
+                        "product",
+                        "PRICE"
+                      ]
+                    },
+                    "*",
+                    {
+                      "ref": [
+                        "items",
+                        "Quantity"
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "as": "CalculatedPrice"
+            }
+          ]
+        }
+      },
+      "elements": {
+        "CompanyName": {
+          "type": "cds.String",
+          "length": 80
+        },
+        "GrossAmount": {
+          "type": "MasterData.AmountT",
+          "precision": 15,
+          "scale": 2
+        },
+        "CurrencyCode": {
+          "type": "MasterData.CurrencyT",
+          "length": 5
+        },
+        "Quantity": {
+          "type": "MasterData.QuantityT",
+          "precision": 13,
+          "scale": 3
+        },
+        "QuantityUnit": {
+          "type": "MasterData.UnitT",
+          "length": 3
+        },
+        "PRODUCTID": {
+          "type": "cds.String",
+          "length": 10
+        },
+        "Price": {
+          "type": "cds.Decimal",
+          "precision": 15,
+          "scale": 2
+        },
+        "CalculatedPrice": {
+          "@Core.Computed": true
+        }
+      }
+    },
     "MasterData": {
       "kind": "context"
     },
