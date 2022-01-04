@@ -1,4 +1,15 @@
 {
+    "SERVICE_REPLACEMENTS": [
+        {
+         "key": "ServiceName_1",
+         "service": "CROSS_SCHEMA_SFLIGHT"
+        },
+     
+        {
+         "key": "hdi-user-service",
+         "service": "XSA-db-user-db"
+        }
+     ],
 	"VCAP_SERVICES": {
 		"hana": [
 			{
@@ -25,6 +36,25 @@
 					"sslValidateCertificate": false
 				}
 			}
-		]
+		],
+        "user-provided":[
+        {
+        "label":"user-provided",
+        "name": "CROSS_SCHEMA_SFLIGHT",
+        "tags":[],
+        "instance_name":"CROSS_SCHEMA_SFLIGHT",
+        "binding_name": null,
+        "credentials": {
+        "password": "HanaRocks81",
+        "schema": "SFLIGHT",
+        "tags":[
+        "hana"
+        ],
+        "user": "CUPS_SFLIGHT"
+        },
+        "syslog_drain_url":"",
+        "volume_mounts":[]
+        }
+    ]
 	}
 }

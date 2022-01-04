@@ -1,5 +1,6 @@
 using MasterData as MD from '../db/MasterData.cds';
 using Transaction as TR from '../db/Transaction.cds';
+//using SFLIGHT as SF from '../db/SFLIGHT.cds';
 
 context CDSViews {
 
@@ -68,4 +69,8 @@ into
 		ceil(items.product.PRICE * items.Quantity) as CalculatedPrice
 		
 	};
+
+
+
+    
 }

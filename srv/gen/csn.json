@@ -1123,6 +1123,558 @@
         }
       }
     },
+    "SFLIGHT": {
+      "kind": "entity",
+      "@cds.persistence.exists": true,
+      "elements": {
+        "MANDT": {
+          "@title": "MANDT",
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        },
+        "CARRID": {
+          "@title": "CARRID",
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        },
+        "CONNID": {
+          "@title": "CONNID",
+          "key": true,
+          "type": "cds.String",
+          "length": 4
+        },
+        "FLDATE": {
+          "@title": "FLDATE",
+          "key": true,
+          "type": "cds.String",
+          "length": 8
+        },
+        "PRICE": {
+          "@title": "PRICE",
+          "type": "cds.Decimal",
+          "precision": 15,
+          "scale": 2,
+          "notNull": true
+        },
+        "CURRENCY": {
+          "@title": "CURRENCY",
+          "type": "cds.String",
+          "length": 5,
+          "notNull": true
+        },
+        "PLANETYPE": {
+          "@title": "PLANETYPE",
+          "type": "cds.String",
+          "length": 10,
+          "notNull": true
+        },
+        "SEATSMAX": {
+          "@title": "SEATSMAX",
+          "type": "cds.Integer",
+          "notNull": true
+        },
+        "SEATSOCC": {
+          "@title": "SEATSOCC",
+          "type": "cds.Integer",
+          "notNull": true
+        },
+        "PAYMENTSUM": {
+          "@title": "PAYMENTSUM",
+          "type": "cds.Decimal",
+          "precision": 17,
+          "scale": 2,
+          "notNull": true
+        },
+        "SEATSMAX_B": {
+          "@title": "SEATSMAX_B",
+          "type": "cds.Integer",
+          "notNull": true
+        },
+        "SEATSOCC_B": {
+          "@title": "SEATSOCC_B",
+          "type": "cds.Integer",
+          "notNull": true
+        },
+        "SEATSMAX_F": {
+          "@title": "SEATSMAX_F",
+          "type": "cds.Integer",
+          "notNull": true
+        },
+        "SEATSOCC_F": {
+          "@title": "SEATSOCC_F",
+          "type": "cds.Integer",
+          "notNull": true
+        }
+      }
+    },
+    "SBOOK": {
+      "kind": "entity",
+      "@cds.persistence.exists": true,
+      "elements": {
+        "MANDT": {
+          "@title": "MANDT",
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        },
+        "CARRID": {
+          "@title": "CARRID",
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        },
+        "CONNID": {
+          "@title": "CONNID",
+          "key": true,
+          "type": "cds.String",
+          "length": 4
+        },
+        "FLDATE": {
+          "@title": "FLDATE",
+          "key": true,
+          "type": "cds.String",
+          "length": 8
+        },
+        "BOOKID": {
+          "@title": "BOOKID",
+          "key": true,
+          "type": "cds.String",
+          "length": 8
+        },
+        "CUSTOMID": {
+          "@title": "CUSTOMID",
+          "type": "cds.String",
+          "length": 8,
+          "notNull": true
+        },
+        "CUSTTYPE": {
+          "@title": "CUSTTYPE",
+          "type": "cds.String",
+          "length": 1,
+          "notNull": true
+        },
+        "SMOKER": {
+          "@title": "SMOKER",
+          "type": "cds.String",
+          "length": 1,
+          "notNull": true
+        },
+        "LUGGWEIGHT": {
+          "@title": "LUGGWEIGHT",
+          "type": "cds.Decimal",
+          "precision": 8,
+          "scale": 4,
+          "notNull": true
+        },
+        "WUNIT": {
+          "@title": "WUNIT",
+          "type": "cds.String",
+          "length": 3,
+          "notNull": true
+        },
+        "INVOICE": {
+          "@title": "INVOICE",
+          "type": "cds.String",
+          "length": 1,
+          "notNull": true
+        },
+        "CLASS": {
+          "@title": "CLASS",
+          "type": "cds.String",
+          "length": 1,
+          "notNull": true
+        },
+        "FORCURAM": {
+          "@title": "FORCURAM",
+          "type": "cds.Decimal",
+          "precision": 15,
+          "scale": 2,
+          "notNull": true
+        },
+        "FORCURKEY": {
+          "@title": "FORCURKEY",
+          "type": "cds.String",
+          "length": 5,
+          "notNull": true
+        },
+        "LOCCURAM": {
+          "@title": "LOCCURAM",
+          "type": "cds.Decimal",
+          "precision": 15,
+          "scale": 2,
+          "notNull": true
+        },
+        "LOCCURKEY": {
+          "@title": "LOCCURKEY",
+          "type": "cds.String",
+          "length": 5,
+          "notNull": true
+        },
+        "ORDER_DATE": {
+          "@title": "ORDER_DATE",
+          "type": "cds.String",
+          "length": 8,
+          "notNull": true
+        },
+        "COUNTER": {
+          "@title": "COUNTER",
+          "type": "cds.String",
+          "length": 8,
+          "notNull": true
+        },
+        "AGENCYNUM": {
+          "@title": "AGENCYNUM",
+          "type": "cds.String",
+          "length": 8,
+          "notNull": true
+        },
+        "CANCELLED": {
+          "@title": "CANCELLED",
+          "type": "cds.String",
+          "length": 1,
+          "notNull": true
+        },
+        "RESERVED": {
+          "@title": "RESERVED",
+          "type": "cds.String",
+          "length": 1,
+          "notNull": true
+        },
+        "PASSNAME": {
+          "@title": "PASSNAME",
+          "type": "cds.String",
+          "length": 25,
+          "notNull": true
+        },
+        "PASSFORM": {
+          "@title": "PASSFORM",
+          "type": "cds.String",
+          "length": 15,
+          "notNull": true
+        },
+        "PASSBIRTH": {
+          "@title": "PASSBIRTH",
+          "type": "cds.String",
+          "length": 8,
+          "notNull": true
+        }
+      }
+    },
+    "SCARR": {
+      "kind": "entity",
+      "@cds.persistence.exists": true,
+      "elements": {
+        "MANDT": {
+          "@title": "MANDT",
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        },
+        "CARRID": {
+          "@title": "CARRID",
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        },
+        "CARRNAME": {
+          "@title": "CARRNAME",
+          "type": "cds.String",
+          "length": 20,
+          "notNull": true
+        },
+        "CURRCODE": {
+          "@title": "CURRCODE",
+          "type": "cds.String",
+          "length": 5,
+          "notNull": true
+        },
+        "URL": {
+          "@title": "URL",
+          "type": "cds.String",
+          "length": 255,
+          "notNull": true
+        }
+      }
+    },
+    "SPFLI": {
+      "kind": "entity",
+      "@cds.persistence.exists": true,
+      "elements": {
+        "MANDT": {
+          "@title": "MANDT",
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        },
+        "CARRID": {
+          "@title": "CARRID",
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        },
+        "CONNID": {
+          "@title": "CONNID",
+          "key": true,
+          "type": "cds.String",
+          "length": 4
+        },
+        "COUNTRYFR": {
+          "@title": "COUNTRYFR",
+          "type": "cds.String",
+          "length": 3,
+          "notNull": true
+        },
+        "CITYFROM": {
+          "@title": "CITYFROM",
+          "type": "cds.String",
+          "length": 20,
+          "notNull": true
+        },
+        "AIRPFROM": {
+          "@title": "AIRPFROM",
+          "type": "cds.String",
+          "length": 3,
+          "notNull": true
+        },
+        "COUNTRYTO": {
+          "@title": "COUNTRYTO",
+          "type": "cds.String",
+          "length": 3,
+          "notNull": true
+        },
+        "CITYTO": {
+          "@title": "CITYTO",
+          "type": "cds.String",
+          "length": 20,
+          "notNull": true
+        },
+        "AIRPTO": {
+          "@title": "AIRPTO",
+          "type": "cds.String",
+          "length": 3,
+          "notNull": true
+        },
+        "FLTIME": {
+          "@title": "FLTIME",
+          "type": "cds.Integer",
+          "notNull": true
+        },
+        "DEPTIME": {
+          "@title": "DEPTIME",
+          "type": "cds.String",
+          "length": 6,
+          "notNull": true
+        },
+        "ARRTIME": {
+          "@title": "ARRTIME",
+          "type": "cds.String",
+          "length": 6,
+          "notNull": true
+        },
+        "DISTANCE": {
+          "@title": "DISTANCE",
+          "type": "cds.Decimal",
+          "precision": 9,
+          "scale": 4,
+          "notNull": true
+        },
+        "DISTID": {
+          "@title": "DISTID",
+          "type": "cds.String",
+          "length": 3,
+          "notNull": true
+        },
+        "FLTYPE": {
+          "@title": "FLTYPE",
+          "type": "cds.String",
+          "length": 1,
+          "notNull": true
+        },
+        "PERIOD": {
+          "@title": "PERIOD",
+          "type": "cds.Integer",
+          "notNull": true
+        }
+      }
+    },
+    "FlightView": {
+      "kind": "entity",
+      "query": {
+        "SELECT": {
+          "from": {
+            "join": "inner",
+            "args": [
+              {
+                "ref": [
+                  "SBOOK"
+                ],
+                "as": "sb"
+              },
+              {
+                "ref": [
+                  "SFLIGHT"
+                ],
+                "as": "sp"
+              }
+            ],
+            "on": [
+              {
+                "ref": [
+                  "sb",
+                  "CARRID"
+                ]
+              },
+              "=",
+              {
+                "ref": [
+                  "sp",
+                  "CARRID"
+                ]
+              },
+              "and",
+              {
+                "ref": [
+                  "sb",
+                  "CONNID"
+                ]
+              },
+              "=",
+              {
+                "ref": [
+                  "sp",
+                  "CONNID"
+                ]
+              },
+              "and",
+              {
+                "ref": [
+                  "sb",
+                  "FLDATE"
+                ]
+              },
+              "=",
+              {
+                "ref": [
+                  "sp",
+                  "FLDATE"
+                ]
+              }
+            ]
+          },
+          "columns": [
+            {
+              "ref": [
+                "sb",
+                "CARRID"
+              ]
+            },
+            {
+              "ref": [
+                "sb",
+                "CONNID"
+              ]
+            },
+            {
+              "ref": [
+                "sb",
+                "FLDATE"
+              ]
+            },
+            {
+              "ref": [
+                "sb",
+                "BOOKID"
+              ]
+            },
+            {
+              "ref": [
+                "sb",
+                "LUGGWEIGHT"
+              ]
+            },
+            {
+              "ref": [
+                "sb",
+                "COUNTER"
+              ]
+            },
+            {
+              "ref": [
+                "sp",
+                "PRICE"
+              ]
+            },
+            {
+              "ref": [
+                "sp",
+                "CURRENCY"
+              ]
+            },
+            {
+              "ref": [
+                "sp",
+                "SEATSMAX"
+              ]
+            }
+          ]
+        }
+      },
+      "elements": {
+        "CARRID": {
+          "@title": "CARRID",
+          "type": "cds.String",
+          "length": 3
+        },
+        "CONNID": {
+          "@title": "CONNID",
+          "type": "cds.String",
+          "length": 4
+        },
+        "FLDATE": {
+          "@title": "FLDATE",
+          "type": "cds.String",
+          "length": 8
+        },
+        "BOOKID": {
+          "@title": "BOOKID",
+          "type": "cds.String",
+          "length": 8
+        },
+        "LUGGWEIGHT": {
+          "@title": "LUGGWEIGHT",
+          "type": "cds.Decimal",
+          "precision": 8,
+          "scale": 4,
+          "notNull": true
+        },
+        "COUNTER": {
+          "@title": "COUNTER",
+          "type": "cds.String",
+          "length": 8,
+          "notNull": true
+        },
+        "PRICE": {
+          "@title": "PRICE",
+          "type": "cds.Decimal",
+          "precision": 15,
+          "scale": 2,
+          "notNull": true
+        },
+        "CURRENCY": {
+          "@title": "CURRENCY",
+          "type": "cds.String",
+          "length": 5,
+          "notNull": true
+        },
+        "SEATSMAX": {
+          "@title": "SEATSMAX",
+          "type": "cds.Integer",
+          "notNull": true
+        }
+      }
+    },
     "Transaction": {
       "kind": "context"
     },
